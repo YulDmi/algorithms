@@ -21,7 +21,7 @@ public class Notebook {
                 "'" + title + '\'' +
                 " ddr - " + ddr +
                 " price - " + price +
-                " руб." ;
+                " $." ;
     }
 
     public String getTitle() {
@@ -40,7 +40,7 @@ public class Notebook {
         this.ddr = ddr;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 

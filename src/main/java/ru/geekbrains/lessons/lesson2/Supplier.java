@@ -2,6 +2,7 @@ package ru.geekbrains.lessons.lesson2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Random;
 
 public class Supplier {
@@ -15,8 +16,8 @@ public class Supplier {
     ArrayList<String> titles;
     Random random;
 
-    public Supplier(int[] param) {
-        titles = new ArrayList<String>(Arrays.asList("Lenovi", "Asun", "MacNote", "Eser", "Xamiou"));
+    public Supplier(int[] param, String [] producers) {
+        titles = new ArrayList<>(Arrays.asList(producers));
         this.minPrice = param[0];
         this.maxPrice = param[1];
         this.stepPrice = param[2];
@@ -34,11 +35,11 @@ public class Supplier {
 
     }
 
-    public Notebook[] genNotebook(int count) {
+    public Notebook[] giveNotebooks(int count) {
         Notebook[] notebooks = new Notebook[count];
         random = new Random();
 
-        for (int i = 0; i < count - 1; i++) {
+        for (int i = 0; i < count; i++) {
             notebooks[i] = new Notebook(
                     titles.get(random.nextInt(titles.size())),
                     generated(maxDDR, minDDR, stepDDR),
@@ -46,5 +47,25 @@ public class Supplier {
 
         }
         return notebooks;
+    }
+
+    public void sort (Notebook[] notebooks) {
+        Comparator<Notebook> comparator = (o1, o2) -> {
+            int value = o1.getPrice().compareTo(o2.getPrice());
+            if (value == 0) {
+                int value2 = o1.getDdr().compareTo(o2.getDdr());
+                if (value2 == 0) {
+                    int value3 = titles.indexOf(o1.getTitle()) - titles.indexOf(o2.getTitle());
+                    return Integer.compare(value3, 0);
+
+                }
+                return value2;
+            }
+            return value;
+        };
+
+        ArrayList<Notebook> list = new ArrayList<>(Arrays.asList(notebooks));
+        list.sort(comparator);
+ // System.out.println(list);
     }
 }
