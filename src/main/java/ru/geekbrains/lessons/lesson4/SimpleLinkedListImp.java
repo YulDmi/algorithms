@@ -5,11 +5,17 @@ public class SimpleLinkedListImp<E> implements LinkedList<E> {
     private Node<E> first;
 
 
+
+
     @Override
     public void insertFirst(E value) {
-
-        first = new Node<E>(value, first);
+        first = new Node<>(value, first);
         size++;
+    }
+
+    @Override
+    public void insertLast(E value) {
+
     }
 
 
